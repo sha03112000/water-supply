@@ -17,8 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+from authentication.views import CreateAdminStaff, CreateCustomeUser, CustomeObtainAdminStaffSerializer, CustomeObtainCustomeUserSerializer
+from rest_framework_simplejwt.views import TokenRefreshView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('auth/',include('authentication.urls')),
-    # path('',include('adminApp.urls')),
+    
+    path('api/admin/register/', CreateAdminStaff.as_view(), name='create-admin-staff'),
+    path('api/admin/login/',CustomeObtainAdminStaffSerializer.as_view(),name='admin-login'),
+    
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), # for both admin/staff and user
+    
+    path('api/user/register/', CreateCustomeUser.as_view(), name='create-user'),
+    path('api/user/login/',CustomeObtainCustomeUserSerializer.as_view(),name='user-login'),
+
 ]

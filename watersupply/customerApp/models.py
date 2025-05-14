@@ -5,12 +5,12 @@ from django.contrib.auth.models import AbstractUser
 
 #create custom user
 class CustomeUsers(AbstractUser):
-    phone_number = models.BigIntegerField()
-    address = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
-    pincode = models.BigIntegerField(max_length=6)
+    phone_number = models.BigIntegerField(null=True, blank=True, unique=True)
+    address = models.CharField(null=True, blank=True, max_length=100)
+    city = models.CharField(null=True, blank=True, max_length=100)
+    state = models.CharField(null=True, blank=True, max_length=50)
+    country = models.CharField(null=True, blank=True, max_length=50)
+    pincode = models.BigIntegerField(null=True, blank=True, max_length=6)
     
     
     def __str__(self):

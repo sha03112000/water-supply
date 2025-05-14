@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 from decouple import config
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
+STATIC_TOKEN = config('STATIC_ACCESS_TOKEN')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'authentication',
     'adminApp',
     'customerApp',
-    'api',
 ]
 
 
@@ -67,9 +66,12 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.UserRateThrottle'
     ],
     
+    #custom exception handler for throttle response
+    'EXCEPTION_HANDLER': 'authentication.utils.custom_exception_handler', 
+    
     # for throttling
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '3/day',
+        'anon': '10/day',
         'user': '100/day'
     }
 }
