@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIGNUP</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    {% if messages %}
+    <div>
+      {% for message in messages %}
+      <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <div class="container mt-5">
+      <h2>Sign Up</h2>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="id_username" class="form-label">Username</label>
+          <input
+            type="text"
+            name="username"
+            id="id_username"
+            class="form-control"
+            value="{{ form.username.value|default_if_none:'' }}"
+          />
+          {% if form.username.errors %}
+          <div class="text-danger">
+            {% for error in form.username.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="id_password" class="form-label">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="id_password"
+            class="form-control"
+            value="{{ form.password.value|default_if_none:'' }}"
+          />
+          {% if form.password.errors %}
+          <div class="text-danger">
+            {% for error in form.password.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="id_password" class="form-label">phoneNumber</label>
+          <input
+            type="number"
+            name="phone_number"
+            id="id_password"
+            class="form-control"
+            value="{{ form.phone_number.value|default_if_none:'' }}"
+          />
+          {% if form.phone_number.errors %}
+          <div class="text-danger">
+            {% for error in form.phone_number.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="id_password" class="form-label">city</label>
+          <input
+            type="text"
+            name="city"
+            id="id_password"
+            class="form-control"
+            value="{{ form.city.value|default_if_none:'' }}"
+          />
+          {% if form.city.errors %}
+          <div class="text-danger">
+            {% for error in form.city.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="id_password" class="form-label">state</label>
+          <input
+            type="text"
+            name="state"
+            id="id_password"
+            class="form-control"
+            value="{{ form.state.value|default_if_none:'' }}"
+          />
+          {% if form.state.errors %}
+          <div class="text-danger">
+            {% for error in form.state.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="id_password" class="form-label">country</label>
+          <input
+            type="text"
+            name="country"
+            id="id_password"
+            class="form-control"
+            value="{{ form.country.value|default_if_none:'' }}"
+          />
+          {% if form.country.errors %}
+          <div class="text-danger">
+            {% for error in form.country.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="id_password" class="form-label">pincode</label>
+          <input
+            type="number"
+            name="pincode"
+            id="id_password"
+            class="form-control"
+            value="{{ form.pincode.value|default_if_none:'' }}"
+          />
+          {% if form.pincode.errors %}
+          <div class="text-danger">
+            {% for error in form.pincode.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="id_password" class="form-label">address</label>
+          <textarea name="address" id="">
+            {{ form.address.value|default_if_none:'' }}
+          </textarea>
+          {% if form.address.errors %}
+          <div class="text-danger">
+            {% for error in form.address.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+      </form>
+      <p>
+        Already have an account? <a href="{% url 'signin' %}">Sign in here</a>.
+      </p>
+    </div>
+    <!-- Bootstrap JS (Optional, for interactive components) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -50,6 +50,15 @@ INSTALLED_APPS = [
     'authentication',
     'adminApp',
     'customerApp',
+    
+    #frontend apps
+    'frontendAuthApp',
+    
+    #frontend admin apps
+    'frontendAdminApp',
+    
+    #frontend customer apps
+    'frontendCusMainApp'
 ]
 
 
@@ -86,8 +95,8 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = 'customerApp.CustomeUsers'
 
-# for web app retun login page if no user is logged in
-LOGIN_URL = '/auth/'
+# for web app retun login page if no user is logged in when django @login_required is used
+# LOGIN_URL = '/auth/'
 
 
 # for media files
@@ -105,11 +114,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
+    
     #third party
     'corsheaders.middleware.CorsMiddleware', #enable cors headers for api
     
     #local
     'watersupply.middleware.DisableClientSideCachingMiddleware', #disable client side caching after logout
+    
+    #frontend
+    'frontendAuthApp.middleware.AdminRoleMiddleware', #admin role middleware
 ]
 
 ROOT_URLCONF = 'watersupply.urls'
@@ -117,7 +130,7 @@ ROOT_URLCONF = 'watersupply.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

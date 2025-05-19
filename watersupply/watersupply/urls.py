@@ -21,7 +21,7 @@ from authentication.views import CreateAdminStaff, CreateCustomeUser, CustomeObt
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
     
     path('api/admin/register/', CreateAdminStaff.as_view(), name='create-admin-staff'),
     path('api/admin/login/',CustomeObtainAdminStaffSerializer.as_view(),name='admin-login'),
@@ -30,5 +30,11 @@ urlpatterns = [
     
     path('api/user/register/', CreateCustomeUser.as_view(), name='create-user'),
     path('api/user/login/',CustomeObtainCustomeUserSerializer.as_view(),name='user-login'),
-
+    
+    path('api/admin/', include('adminApp.urls')),
+    
+    
+    path('', include('frontendCusMainApp.urls')),
+    path('auth/', include('frontendAuthApp.urls')),
+    path('admin/', include('frontendAdminApp.urls')),
 ]

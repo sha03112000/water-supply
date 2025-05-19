@@ -69,7 +69,7 @@ class CreateCustomeUser(APIView):
         return Response({
             'responseStatus': False,
             'responseData': serializers.errors,
-            'responseMessage': 'User creation failed',
+            'responseMessage': serializers.errors,
             'responseCode': 400
         })
 
