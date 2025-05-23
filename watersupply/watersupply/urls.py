@@ -33,7 +33,7 @@ urlpatterns = [
     
     path('api/admin/', include('adminApp.urls')),
     
-    
+    # frontend
     path('', include('frontendCusMainApp.urls')),
     path('auth/', include('frontendAuthApp.urls')),
     path('admin/', include('frontendAdminApp.urls')),

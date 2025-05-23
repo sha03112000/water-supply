@@ -56,21 +56,30 @@ class CreateCustomeUser(APIView):
     throttle_classes = [AnonRateThrottle]
     
     def post(self, request, format=None):
-        serializers = CustomeUsersSerializers(data=request.data)
-        if serializers.is_valid():
-            user = serializers.save()
-            if user:
+        
+        try:
+            serializers = CustomeUsersSerializers(data=request.data)
+            if serializers.is_valid():
+                serializers.save()
                 return Response({
                     'responseStatus': True,
                     'responseData': serializers.data,
                     'responseMessage': 'User created successfully',
-                    'responseCode': 200,
+                    'responseCode': status.HTTP_201_CREATED,
                 },status=status.HTTP_201_CREATED)
-        return Response({
-            'responseStatus': False,
-            'responseData': serializers.errors,
-            'responseMessage': serializers.errors,
-            'responseCode': 400
-        })
+            return Response({
+                'responseStatus': False,
+                'responseData': [],
+                'responseMessage': serializers.errors,
+                'responseCode': status.HTTP_400_BAD_REQUEST
+            },status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({
+                'responseStatus': False,
+                'responseData': [],
+                'responseMessage': f'User creation failed: {str(e)}',
+                'responseCode': status.HTTP_500_INTERNAL_SERVER_ERROR
+                # 'res': str(e)
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 

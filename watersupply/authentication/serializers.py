@@ -93,6 +93,10 @@ class CustomeUsersSerializers(serializers.ModelSerializer):
             'password': {'write_only': True}
         }
         
+    def validate_phone_number(self, value):
+        if User.objects.filter(phone_number=value).exists():
+            raise serializers.ValidationError("Phone number already exists.")
+        return value
         #hash password
     def create(self, validated_data):
         password = validated_data.pop('password')

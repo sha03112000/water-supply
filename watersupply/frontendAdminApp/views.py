@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 import json
 import requests
-
+from decouple import config
 # Create your views here.
 
 def get_admin_tokens(request):
@@ -21,7 +21,7 @@ def get_admin_tokens(request):
         
 def admin_index(request):
     tokens = get_admin_tokens(request)
-    url = "http://192.168.20.3:8000/api/admin/index"
+    url = f"{config('API_ADMIN_HOST')}/index/"
     
     
     response = call_api(
