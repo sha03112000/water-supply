@@ -7,9 +7,11 @@ def custom_exception_handler(exc, context):
 
     if isinstance(exc, Throttled):
         custom_response_data = { 
-            'detail': 'Too many requests.',
+            'responseMessage': 'Too many requests.',
             'retry_after': f'{exc.wait} seconds',
-            'error_code': '429'
+            'responseCode': '429',
+            'responseStatus': False,
+            'responseData': {}
         }
         response.data = custom_response_data 
     return response

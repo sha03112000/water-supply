@@ -7,7 +7,7 @@ def login_required_decorator(view_func):
         token = request.session.get('user_token')
         role = request.session.get('user_role')
         if not token or role != 'user':
-            messages.error(request, 'You must be logged in to view this page.')
+            messages.error(request, 'please log in to continue.')
             return redirect('signin')
         return view_func(request, *args, **kwargs)
     return _wrapped_view
