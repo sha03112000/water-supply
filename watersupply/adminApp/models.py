@@ -1,5 +1,10 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.files.storage import default_storage
+
+# delete old images when product is deleted
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 
 
 
@@ -23,6 +28,26 @@ class Products(models.Model):
     class Meta:
         db_table = 'products'
         
+    # delete old images when product is updated
+    def save(self, *args, **kwargs):
+        if self.pk:
+            try:
+                old_image = Products.objects.get(pk=self.pk).product_image
+                if old_image and old_image != self.product_image:
+                    if default_storage.exists(old_image.name):
+                        default_storage.delete(old_image.name)
+            except Products.DoesNotExist:
+                pass
+        super().save(*args, **kwargs)
+
+# delete old images when product is deleted
+@receiver(post_delete, sender=Products)
+def delete_product_image(sender, instance, **kwargs):
+    if instance.product_image:
+        if default_storage.exists(instance.product_image.name):
+            default_storage.delete(instance.product_image.name)
+            
+
 class Orders(models.Model):
     ordered_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
     product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='orders')

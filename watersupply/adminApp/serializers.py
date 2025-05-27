@@ -29,6 +29,9 @@ class ProductSerializer(serializers.ModelSerializer):
             products.product_image = product_image
             products.save()
         return products
+    
+
+    
 
 
 class OrderSerializer(serializers.ModelSerializer):
