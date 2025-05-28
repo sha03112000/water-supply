@@ -29,7 +29,7 @@ class ProductsListAndCreate(APIView):
             
             all_products = Products.objects.all().order_by('-created_at')
             paginated_products = paginator.paginate_queryset(all_products, request)
-            product_serializer = self.serializer_class(paginated_products, many=True, context={'request': request})
+            product_serializer = self.serializer_class(paginated_products, many=True, context={'request': request}) #context= for full URL in image field
             pagination_data = paginator.get_paginated_response(product_serializer.data).data
 
             return Response({
@@ -40,8 +40,7 @@ class ProductsListAndCreate(APIView):
                         'next': pagination_data['next'],
                         'previous': pagination_data['previous'],
                     },
-                    'products': pagination_data['results'],
-                    
+                    'products': pagination_data['results'],  
                 },
                 'responseMessage': 'Products fetched successfully',
                 'responseCode': status.HTTP_200_OK
@@ -91,7 +90,7 @@ class ProductsRetrieveUpdateDelete(APIView):
     def get(self, request, pk, format=None):
         try:
             product = Products.objects.get(pk=pk)
-            product_serializer = self.serializer_class(product, context={'request': request}).data
+            product_serializer = self.serializer_class(product, context={'request': request}).data #context= for full URL in image field
             return Response({
                 'responseStatus': True,
                 'responseData': {

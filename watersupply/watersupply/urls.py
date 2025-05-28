@@ -32,6 +32,7 @@ urlpatterns = [
     path('api/user/login/',CustomeObtainCustomeUserSerializer.as_view(),name='user-login'),
     
     path('api/admin/', include('adminApp.urls')),
+    path('api/user/', include('customerApp.urls')),
     
     # frontend
     path('', include('frontendCusMainApp.urls')),
